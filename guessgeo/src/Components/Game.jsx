@@ -118,7 +118,7 @@ function Game({ user }) {
     const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
     // Build Google Street View image URL
-    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=0&key=our_api_key`; // Replace 'our_api_key' with our API key //
+    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=0&key=AIzaSyCFbD3MKwfDPmYyU1pemJAwjIMRT8Cl-Y0`; // Replace 'our_api_key' with our API key //
 
     // Set image to display
     setImage(streetViewURL);
@@ -174,7 +174,7 @@ function Game({ user }) {
         <h2 className="subtitle">Where in the world are you?</h2>
         <p className="welcome">Welcome, {user ? user.username : "Guest"}!</p>
 
-        <p className="score">Score score={score} </p>
+        <Score score={score} />
         <p className="question">Where is this place?</p>
 
         <div className="answers">

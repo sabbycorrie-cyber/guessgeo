@@ -96,6 +96,8 @@ function Game({ user }) {
     const [place, setPlace] = useState(null);
     const [options, setOptions] = useState([]);
     const [image, setImage] = useState(null);
+    const [round, setRound] = useState(1);
+    const [gameOver, setGameOver] = useState(false);
 
     /* === Help Functions, get random location, returns one random place object from Places array === */
     const getRandomPlace = () => {
@@ -149,17 +151,38 @@ function Game({ user }) {
 
     // If correct -> increase score
     if (selected === place) {
-        setScore(prev => prev + 1);
+        setScore((prev) => prev + 1);
     }
-
-    // Load next question
-    loadPlace();
+    // Check if game should end after 5 rounds
+    if (round >= 5) {
+        setGameOver(true);
+    } else {
+        // Move to next round
+        setRound((prev) => prev + 1);
+        // Load new location/question
+        loadPlace();
+    }
 };
 
     /* === Initial Load, runs once when component mounts === */
     useEffect(() => {
     loadPlace();
     }, []);
+
+    /* === Game Over Screen === */
+    /* Show final score after 5 rounds and lets user restart the game */
+    if (gameOver) {
+        return (
+            <div>
+                <h1>Game Over</h1>
+                <p>Final Score: {score}/5</p>
+
+                <button onClick={() => window.location.reload()}>
+                    Play Again
+                </button>
+            </div>
+        );
+    }
 
     /* === JSX === */
     return (

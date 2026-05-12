@@ -6,6 +6,7 @@ function Login({setUser}) {
     /* === Form State === */
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
     const [isLogin, setIsLogin] = useState(true);
 
     /* === Form Submission Handler, handles both login and sign up === */
@@ -57,6 +58,8 @@ function Login({setUser}) {
             <form onSubmit={handleSubmit} className="form">
                 <input
                     type="text"
+                    id="username"
+                    name="username"
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -64,10 +67,23 @@ function Login({setUser}) {
 
                 <input
                     type="password"
+                    id="password"
+                    name="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+
+                {!isLogin && (
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) = setEmail(e.target.value)}
+                    />
+                )}
 
                 <button type="submit">
                     {isLogin ? "Login" : "Sign Up"}

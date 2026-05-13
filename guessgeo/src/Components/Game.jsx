@@ -152,7 +152,7 @@ function Game({ user }) {
         setScore((prev) => prev + 1);
     }
     // Check if game should end after 5 rounds
-    if (round >= 5) {
+    if (round >= 10) {
         setGameOver(true);
     } else {
         // Move to next round
@@ -173,7 +173,7 @@ function Game({ user }) {
         return (
             <div>
                 <h1>Game Over</h1>
-                <p>Final Score: {score}/5</p>
+                <p>Final Score: {score}/10</p>
 
                 <button onClick={() => window.location.reload()}>
                     Play Again

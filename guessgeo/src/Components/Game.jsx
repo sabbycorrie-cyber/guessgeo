@@ -76,9 +76,9 @@ function Game({ user }) {
         {
             city: "Barcelona",
             country: "Spain",
-            lat: 41.403177113795195,
-            lon: 2.1749564452995607,
-            heading: 274 },
+            lat: 41.4035622,
+            lon: 2.1732436,
+            heading: 63},
         {
             city: "St Petersburg",
             country: "Russia",

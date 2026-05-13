@@ -13,14 +13,6 @@ function Game({ user }) {
 3.Heading (camera direction) === */
     const PLACES = [
         { 
-            city: "Zanzibar",
-            country: "Tanzania",
-            lat: -6.1650,
-            lon: 39.1990,
-            heading: 90
-        },
-
-        { 
             city: "Porto",
             country: "Portugal",
             lat: 41.1413,
@@ -61,14 +53,6 @@ function Game({ user }) {
             },
 
         { 
-            city: "Valparaíso",
-            country: "Chile",
-            lat: -33.0458, 
-            lon: -71.6197, 
-            heading: 149 
-            },
-
-        { 
             city: "Marrakesh",
             country: "Morocco",
             lat: 31.6295,
@@ -90,6 +74,186 @@ function Game({ user }) {
             lat: 47.9185,
             lon: 106.9170,
             heading: 160 },
+        {
+            city: "Barcelona",
+            country: "Spain",
+            lat: 41.403177113795195,
+            lon: 2.1749564452995607,
+            heading: 274 },
+        {
+            city: "St Petersburg",
+            country: "Russia",
+            lat: 59.94004642222007,
+            lon: 30.32952354188559,
+            heading: 247 },
+        {
+            city: "Ho Chi Minh",
+            country: "Vietnam",
+            lat: 10.750242,
+            lon: 106.6424075,
+            heading: 309},
+        {
+            city: "Muscat",
+            country: "Oman",
+            lat: 23.5851382,
+            lon: 58.3610217,
+            heading: 350},
+        {
+            city: "Dubrovnik",
+            country: "Croatia",
+            lat: 42.6445265,
+            lon: 18.0910903,
+            heading: 128},
+        {
+            city: "Santiago de Chile",
+            country: "Chile",
+            lat: -33.5098696,
+            lon: -70.5860609,
+            heading: 130},
+        {
+            city: "Zanzibar City",
+            country: "Tanzania",
+            lat: -6.8220669,
+            lon: 39.2731545,
+            heading: 12},
+        {
+            city: "Toronto",
+            country: "Canada",
+            lat: 43.6771217,
+            lon: -79.4090617,
+            heading: 332},
+        {
+            city: "Bergen",
+            country: "Norway",
+            lat: 60.387254,
+            lon: 5.3273385,
+            heading: 61},
+        {
+            city: "Seoul",
+            country: "South Korea",
+            lat: 37.5398109,
+            lon: 126.9957801,
+            heading: 80},
+        {
+            city: "Naples",
+            country: "Italy",
+            lat: 40.8406575,
+            lon: 14.2486514,
+            heading: 211},
+        {
+            city: "Dhaka",
+            country: "Bangladesh",
+            lat: 23.7448171,
+            lon: 90.4067687,
+            heading: 136},
+        {
+            city: "Auckland",
+            country: "New Zealand",
+            lat: -36.8518358,
+            lon: 174.7661982,
+            heading: 343},
+        {
+            city: "Managua",
+            country: "Nicaragua",
+            lat: 12.1127768,
+            lon: -86.2989018,
+            heading: 87},
+        {
+            city: "Gdansk",
+            country: "Poland",
+            lat: 54.3524805,
+            lon: 18.6512492,
+            heading: 142},
+        {
+            city: "Lagos",
+            country: "Nigeria",
+            lat: 6.4487497,
+            lon: 3.2526325,
+            heading: 319},
+        {
+            city: "Manila",
+            country: "Philippines",
+            lat: 14.614839,
+            lon: 121.0133544,
+            heading: 223},
+        {
+            city: "Edinburgh",
+            country: "Scotland",
+            lat: 55.9477137,
+            lon: -3.1884075,
+            heading: 266},
+        {
+            city: "Istanbul",
+            country: "Turkey",
+            lat: 41.0048031,
+            lon: 28.9834311,
+            heading: 92},
+        {
+            city: "Bogota",
+            country: "Colombia",
+            lat: 4.7514099,
+            lon: -74.0974181,
+            heading: 185},
+        {
+            city: "London",
+            country: "England",
+            lat: 51.520891,
+            lon: -0.1267399,
+            heading: 151},
+        {
+            city: "Cape Town",
+            country: "South Africa",
+            lat: -33.9341128,
+            lon: 18.4077264,
+            heading: 143},
+        {
+            city: "Mumbai",
+            country: "India",
+            lat: 19.0120078,
+            lon: 72.8449895,
+            heading: 131},
+        {
+            city: "Brussels",
+            country: "Belgium",
+            lat: 50.8616069,
+            lon: 4.3561032,
+            heading: 182},
+        {
+            city: "Nairobi",
+            country: "Kenya",
+            lat: -1.2837826,
+            lon: 36.8212591,
+            heading: 31},
+        {
+            city: "Jakarta",
+            country: "Indonesia",
+            lat: -6.1383656,
+            lon: 106.8137334,
+            heading: 163},
+        {
+            city: "Juneau",
+            country: "USA",
+            lat: 58.3001615,
+            lon: -134.4251922,
+            heading: 72},
+        {
+            city: "Belgrade",
+            country: "Serbia",
+            lat: 44.8050633,
+            lon: 20.4705408,
+            heading: 11},
+        {
+            city: "Hong Kong",
+            country: "Hong Kong",
+            lat: 22.3161457,
+            lon: 114.1675301,
+            heading: 76},
+        {
+            city: "Helsinki",
+            country: "Finland",
+            lat: 60.1678205,
+            lon: 24.9494882,
+            heading: 350},
     ];
 
     /* === State Variables === */
@@ -117,7 +281,11 @@ function Game({ user }) {
     // Get random location data 
     const { lat, lon, city, country, heading } = getRandomPlace();
 
-    const streetViewURL = getStreetViewURL(lat, lon, heading);
+    // Access API key from .env
+    const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
+    // Build Google Street View image URL
+    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=0&key=our_api_key`; // Replace 'our_api_key' with our API key //
 
     // Set image to display
     setImage(streetViewURL);

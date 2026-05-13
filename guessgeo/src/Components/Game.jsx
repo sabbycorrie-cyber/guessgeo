@@ -1,5 +1,6 @@
-/* === Game Component (Main Logic), controls game state, scoring, and question generation === */
+/* === Game Component (Main Logic), controls game state, Street View Image loading, scoring, and question generation === */
 import { useState, useEffect } from "react";
+import { getStreetViewURL } from "../Services/streetView";
 import Score from "./Score.jsx";
 import Question from "./Question.jsx";
 import Answers from "./Answers.jsx";
@@ -8,7 +9,7 @@ function Game({ user }) {
 
     /* === Data, list of all possible locations used in the game, each object contains:
 1.City & country (for answers)
-2.lat & lon (for Google Street View)
+2.Lat & lon (for Google Street View)
 3.Heading (camera direction) === */
     const PLACES = [
         { 
@@ -116,11 +117,7 @@ function Game({ user }) {
     // Get random location data 
     const { lat, lon, city, country, heading } = getRandomPlace();
 
-    // Access API key from .env
-    const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-
-    // Build Google Street View image URL
-    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=0&key=${API_KEY}`;
+    const streetViewURL = getStreetViewURL(lat, lon, heading);
 
     // Set image to display
     setImage(streetViewURL);

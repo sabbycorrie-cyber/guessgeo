@@ -61,6 +61,7 @@ function Login({setUser}) {
                     id="username"
                     name="username"
                     placeholder="Username"
+                    autoComplete="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
@@ -70,6 +71,7 @@ function Login({setUser}) {
                     id="password"
                     name="password"
                     placeholder="Password"
+                    autoComplete={isLogin ? "current-password" : "new-password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
@@ -80,6 +82,7 @@ function Login({setUser}) {
                     id="email"
                     name="email"
                     placeholder="Email"
+                    autoComplete="email"
                     value={email}
                     onChange={(e) = setEmail(e.target.value)}
                     />

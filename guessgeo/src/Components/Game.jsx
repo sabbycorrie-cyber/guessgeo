@@ -181,9 +181,78 @@ function Game({ user }) {
             lat: 55.9477137,
             lon: -3.1884075,
             heading: 266},
-
-
-
+        {
+            city: "Istanbul",
+            country: "Turkey",
+            lat: 41.0048031,
+            lon: 28.9834311,
+            heading: 92},
+        {
+            city: "Bogota",
+            country: "Colombia",
+            lat: 4.7514099,
+            lon: -74.0974181,
+            heading: 185},
+        {
+            city: "London",
+            country: "England",
+            lat: 51.520891,
+            lon: -0.1267399,
+            heading: 151},
+        {
+            city: "Cape Town",
+            country: "South Africa",
+            lat: -33.9341128,
+            lon: 18.4077264,
+            heading: 143},
+        {
+            city: "Mumbai",
+            country: "India",
+            lat: 19.0120078,
+            lon: 72.8449895,
+            heading: 131},
+        {
+            city: "Brussels",
+            country: "Belgium",
+            lat: 50.8616069,
+            lon: 4.3561032,
+            heading: 182},
+        {
+            city: "Nairobi",
+            country: "Kenya",
+            lat: -1.2837826,
+            lon: 36.8212591,
+            heading: 31},
+        {
+            city: "Jakarta",
+            country: "Indonesia",
+            lat: -6.1383656,
+            lon: 106.8137334,
+            heading: 163},
+        {
+            city: "Juneau",
+            country: "USA",
+            lat: 58.3001615,
+            lon: -134.4251922,
+            heading: 72},
+        {
+            city: "Belgrade",
+            country: "Serbia",
+            lat: 44.8050633,
+            lon: 20.4705408,
+            heading: 11},
+        {
+            city: "Hong Kong",
+            country: "Hong Kong",
+            lat: 22.3161457,
+            lon: 114.1675301,
+            heading: 76},
+        {
+            city: "Helsinki",
+            country: "Finland",
+            lat: 60.1678205,
+            lon: 24.9494882,
+            heading: 350},
     ];
 
     /* === State Variables === */

@@ -281,7 +281,7 @@ function Game({ user }) {
     // Get random location data 
     const { lat, lon, city, country, heading } = getRandomPlace();
 
-    // Access API key from .env
+    // Access API key from .env.local
     const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
     // Build Google Street View image URL

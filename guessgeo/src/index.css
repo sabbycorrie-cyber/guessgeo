@@ -183,6 +183,10 @@ button:hover {
   color: #1f2937;
 }
 
+.form input::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
 /* === Input Focus Effect === */
 .form input:focus {
   border-color: #38bdf8;
@@ -278,3 +282,60 @@ button:hover {
   display: inline-block;
   transform: scale(1.08);
 }
+
+.game-over-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.final-score-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  padding: 40px;
+  border-radius: 20px;
+  width: 420px;
+}
+
+.final-score {
+  font-size: 42px;
+  font-weight: bold;
+  margin: 0;
+  color: white;
+}
+
+.final-score-card h1 {
+  margin: 0;
+}
+
+.play-again-button {
+  background: #4ade80;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.play-again-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(34,197,94,0.6);
+}
+@keyframes wiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+

@@ -280,6 +280,7 @@ function Game({ user }) {
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [showResult, setShowResult] = useState(false);
     const [feedback, setFeedback] = useState("");
+    const [usedPlaces, setUsedPlaces] = useState([]);
 
     /* === Help Functions, get random location, returns one random place object from Places array === */
     const getRandomPlace = () => {
@@ -297,7 +298,7 @@ function Game({ user }) {
 
     return randomPlace;
     };
-    
+
     const shuffleArray = (array) => {
     return [...array] .sort(() => Math.random() - 0.5)
     }

@@ -263,6 +263,10 @@ function Game({ user }) {
     const [image, setImage] = useState(null);
     const [round, setRound] = useState(1);
     const [gameOver, setGameOver] = useState(false);
+    
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const [showResult, setShowResult] = useState(false);
+
 
     /* === Help Functions, get random location, returns one random place object from Places array === */
     const getRandomPlace = () => {
@@ -312,23 +316,37 @@ function Game({ user }) {
 
     /* === Handle Answer Click, checks correctness + updates score === */
     const handleAnswer = (selected) => {
-    console.log("Selected:", selected);
-    console.log("Correct:", place);
+    setSelectedAnswer(selected);
+    setShowResult(true);
 
     // If correct -> increase score
     if (selected === place) {
         setScore((prev) => prev + 1);
     }
-    // Check if game should end after 5 rounds
-    if (round >= 10) {
+
+    // Wait 2 seconds before next round
+    setTimeout(() => {
+        if (round === 10) {
         setGameOver(true);
-    } else {
-        // Move to next round
+        } else {
         setRound((prev) => prev + 1);
-        // Load new location/question
         loadPlace();
-    }
+        }
+        setShowResult(false);
+        setSelectedAnswer(null);
+    }, 2000);
 };
+
+<p className="question">Where is this place?</p>
+{showResult && (
+    <div className="result-message">
+    {selectedAnswer === place ? (
+        <p className="correct">Correct!</p>
+    ) : (
+        <p className="incorrect">Incorrect! Correct answer was: {place}</p>
+    )}
+    </div>
+)}
 
     /* === Initial Load, runs once when component mounts === */
     useEffect(() => {

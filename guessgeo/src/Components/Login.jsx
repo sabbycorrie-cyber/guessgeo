@@ -31,7 +31,7 @@ function Login({setUser}) {
                 // Log user in
                 setUser(storedUser);
                 } else {
-                    alert("Invalid login");
+                    alert("Incorrect username or password");
                 }
         }
 
@@ -39,7 +39,7 @@ function Login({setUser}) {
         else {
 
             // Create new user object
-            const newUser = { username, password };
+            const newUser = { username, password, email };
 
             // Save user in localStorage
             localStorage.setItem(username, JSON.stringify(newUser));

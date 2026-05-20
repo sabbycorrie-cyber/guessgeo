@@ -23,9 +23,9 @@ function Game({ user }) {
         { 
             city: "Bridgetown",
             country: "Barbados",
-            lat: 13.0975,
-            lon: -59.6132,
-            heading: 110
+            lat: 13.1866751,
+            lon: -59.6365324,
+            heading: 41.99
         },
 
         { 
@@ -37,10 +37,10 @@ function Game({ user }) {
         },
 
         { 
-            city: "Cusco",
+            city: "Lima",
             country: "Peru",
-            lat: -13.5167,
-            lon: -71.9780,
+            lat: -12.1464,
+            lon: -77.0207,
             heading: 180
         },
 
@@ -257,9 +257,9 @@ function Game({ user }) {
         {
             city: "Helsingborg",
             country: "Sweden",
-            lat: 56.0606,
-            lon: 12.6894,
-            heading: 90},
+            lat: 56.0657203,
+            lon: 12.677352,
+            heading: 180.35},
         {
             city: "Georgetown",
             country: "Guyana",
@@ -284,7 +284,9 @@ function Game({ user }) {
 
     /* === Help Functions, get random location, returns one random place object from Places array === */
     const getRandomPlace = () => {
-    const availablePlaces = PLACES.filter((place) => !usedPlaces.includes(place)
+    const availablePlaces = PLACES.filter(
+        (place) => !usedPlaces.some((used) => used.city === place.city && used.country === place.country
+        )
     );
 
     if (availablePlaces.length === 0) {
@@ -295,6 +297,10 @@ function Game({ user }) {
     const randomPlace = availablePlaces[Math.floor(Math.random() * availablePlaces.length)];
 
     setUsedPlaces((prev) => [...prev, randomPlace]);
+
+    if (availablePlaces.length === 0) {
+        setUsedPlaces([]);
+    }
 
     return randomPlace;
     };

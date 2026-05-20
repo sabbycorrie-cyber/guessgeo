@@ -1,7 +1,7 @@
 /* === Login Component, handles login + sign up using localStorage === */
 import {useState} from "react";
 
-function Login({setUser}) {
+function Login({ setUser }) {
 
     /* === Form State === */
     const [username, setUsername] = useState("");
@@ -84,7 +84,7 @@ function Login({setUser}) {
                     placeholder="Email"
                     autoComplete="email"
                     value={email}
-                    onChange={(e) = setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     />
                 )}
 

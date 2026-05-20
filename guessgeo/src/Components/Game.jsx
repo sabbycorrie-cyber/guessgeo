@@ -378,12 +378,12 @@ function Game({ user }) {
         ) : (
         <p>Loading location...</p>
         )}
+        <div className="info-panel">
         <h2 className="subtitle">Where in the world are you?</h2>
         <p className="welcome">Welcome, {user ? user.username : "Guest"}!</p>
 
         <Score score={score} />
-        <p className="question">Where is this place?</p>
-
+        </div>
         <div className="answers">
             <Answers options={options} onAnswer={handleAnswer} />
     </div>

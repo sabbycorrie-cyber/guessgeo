@@ -378,23 +378,30 @@ function Game({ user }) {
     loadPlace();
     }, []);
 
+    const restartGame = () => {
+        setScore(0);
+        setRound(1);
+        setGameOver(false);
+        setUsedPlaces([]);
+        setSelectedAnswer(null);
+        setShowResult(false);
+        loadPlace();
+    };
+
     /* === Game Over Screen === */
     /* Show final score after 5 rounds and lets user restart the game */
     if (gameOver) {
         return (
-            <div>
+            <div className="final-score-card">
                 <h1>Game Over</h1>
-                <p>Final Score: {score}/10</p>
 
-                <button onClick={() => {
-                    setScore(0);
-                    setRound(1);
-                    setGameOver(false);
-                    loadPlace();
-                }}>
-                    Play Again!
+                <p className="final-score">Final Score: {score}/10</p>
+
+                <button className="play-again-button" 
+                onClick={restartGame}>
+                Play Again!
                 </button>
-            </div>
+                </div>
         );
     }
 
@@ -427,7 +434,10 @@ function Game({ user }) {
 )}
 
 <div className="answers">
-    <Answers options={options} onAnswer={handleAnswer} />
+    <Answers options={options} 
+    correctAnswer={place}
+    onAnswer={handleAnswer}
+    />
 </div>
     </div>
     );

@@ -24,8 +24,8 @@ function Game({ user }) {
             city: "Bridgetown",
             country: "Barbados",
             lat: 13.0975,
-            lon: -59.6167,
-            heading: 90
+            lon: -59.6132,
+            heading: 110
         },
 
         { 
@@ -47,9 +47,9 @@ function Game({ user }) {
         { 
             city: "Tbilisi",
             country: "Georgia",
-            lat: 41.6952,
-            lon: 44.8010,
-            heading: 200
+            lat: 41.6938,
+            lon: 44.8015,
+            heading: 120
             },
 
         { 
@@ -254,6 +254,19 @@ function Game({ user }) {
             lat: 60.1678205,
             lon: 24.9494882,
             heading: 350},
+        {
+            city: "Helsingborg",
+            country: "Sweden",
+            lat: 56.0606,
+            lon: 12.6894,
+            heading: 90},
+        {
+            city: "Georgetown",
+            country: "Guyana",
+            lat: 6.4890,
+            lon: -58.2527,
+            heading: 180
+        }
     ];
 
     /* === State Variables === */
@@ -266,13 +279,25 @@ function Game({ user }) {
     
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [showResult, setShowResult] = useState(false);
-
+    const [feedback, setFeedback] = useState("");
 
     /* === Help Functions, get random location, returns one random place object from Places array === */
     const getRandomPlace = () => {
-    return PLACES[Math.floor(Math.random() * PLACES.length)]
+    const availablePlaces = PLACES.filter((place) => !usedPlaces.includes(place)
+    );
+
+    if (availablePlaces.length === 0) {
+        setUsedPlaces([]);
+        return PLACES[Math.floor(Math.random() * PLACES.length)];
     }
 
+    const randomPlace = availablePlaces[Math.floor(Math.random() * availablePlaces.length)];
+
+    setUsedPlaces((prev) => [...prev, randomPlace]);
+
+    return randomPlace;
+    };
+    
     const shuffleArray = (array) => {
     return [...array] .sort(() => Math.random() - 0.5)
     }
@@ -289,7 +314,7 @@ function Game({ user }) {
     const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
     // Build Google Street View image URL
-    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=0&key=${API_KEY}`;
+    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=-5&key=${API_KEY}`;
 
     // Set image to display
     setImage(streetViewURL);
@@ -322,6 +347,9 @@ function Game({ user }) {
     // If correct -> increase score
     if (selected === place) {
         setScore((prev) => prev + 1);
+        setFeedback("Correct!");
+    } else {
+        setFeedback(`Incorrect! Answer: ${place}`);
     }
 
     // Wait 2 seconds before next round
@@ -334,19 +362,9 @@ function Game({ user }) {
         }
         setShowResult(false);
         setSelectedAnswer(null);
-    }, 2000);
+    }, 800);
 };
 
-<p className="question">Where is this place?</p>
-{showResult && (
-    <div className="result-message">
-    {selectedAnswer === place ? (
-        <p className="correct">Correct!</p>
-    ) : (
-        <p className="incorrect">Incorrect! Correct answer was: {place}</p>
-    )}
-    </div>
-)}
 
     /* === Initial Load, runs once when component mounts === */
     useEffect(() => {
@@ -361,8 +379,13 @@ function Game({ user }) {
                 <h1>Game Over</h1>
                 <p>Final Score: {score}/10</p>
 
-                <button onClick={() => window.location.reload()}>
-                    Play Again
+                <button onClick={() => {
+                    setScore(0);
+                    setRound(1);
+                    setGameOver(false);
+                    loadPlace();
+                }}>
+                    Play Again!
                 </button>
             </div>
         );
@@ -371,7 +394,7 @@ function Game({ user }) {
     /* === JSX === */
     return (
     <div className="app-container">
-        <h1 className="title">Guess Geo</h1>
+        <h1 className="title">GuessGeo</h1>
 
         {image ? (
         <img src={image} alt="Street View" />
@@ -384,9 +407,21 @@ function Game({ user }) {
 
         <Score score={score} />
         </div>
-        <div className="answers">
-            <Answers options={options} onAnswer={handleAnswer} />
+
+        <p className="question">Where is this place?</p>
+{showResult && (
+    <div className="result-message">
+    {selectedAnswer === place ? (
+        <p className="correct">Correct!</p>
+    ) : (
+        <p className="incorrect">Incorrect! Correct answer was: {place}</p>
+    )}
     </div>
+)}
+
+<div className="answers">
+    <Answers options={options} onAnswer={handleAnswer} />
+</div>
     </div>
     );
 }

@@ -21,7 +21,7 @@ function Game({ user }) {
         },
 
         { 
-            city: "Bridgetown",
+            city: "Holetown",
             country: "Barbados",
             lat: 13.1866751,
             lon: -59.6365324,

@@ -1,14 +1,14 @@
-/* === Main App Component, controls: user authentication state & switching between Login and Game screens === */
+/* Main application component */
 import { useState, useEffect } from "react";
 import Login from "./Components/Login.jsx";
 import Game from "./Components/Game.jsx";
 
 function App() {
 
-/* === User State, stores the currently logged-in user, null = no user logged in === */
+/* Active user state */
   const [user, setUser] = useState(null);
 
-/* === Load Saved User (on app start), checks localStorage for saved login, keeps user logged in after refresh === */
+/* Restore saved user session */
 useEffect(() => {
   const savedUser = localStorage.getItem("currentUser");
   if (savedUser) {
@@ -17,7 +17,7 @@ useEffect(() => {
 }
 , []);
 
-/* === Conditional Rendering, if no user-> show Login screen, if user exists -> show Game === */
+/* Render login or game screen */
 return (
   <div>
     {!user ? (

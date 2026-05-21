@@ -1,10 +1,11 @@
-/* Answers Component: displays multiple answer buttons and handles selection */
+/* Answer selection component */
 import { useState } from "react";
 
 function Answers(props) {
 const { options = [], correctAnswer, onAnswer } = props;
 const [selected, setSelected] = useState(null);
 
+// Sound effects
 const correctSound = new Audio("/sounds/correct.mp3");
 const wrongSound = new Audio("/sounds/wrong.mp3");
 
@@ -12,8 +13,6 @@ const handleClick = (option) => {
     if (selected) return; // ignore if already selected
     setSelected(option);
 
-console.log("OPTION:", option);
-console.log("CORRECT:", correctAnswer);
     if (option?.trim().toLowerCase() === correctAnswer?.trim().toLowerCase() 
     ) {
         correctSound.currentTime = 0;
@@ -23,7 +22,7 @@ console.log("CORRECT:", correctAnswer);
         wrongSound.play();
     }
 
-    // Wait 1.5 seconds before reporting the answer
+    // Delay next round feedback
     setTimeout(() => {
     onAnswer(option);
     setSelected(null);

@@ -1,12 +1,12 @@
-/* === GLOBAL STYLES, resets default spacing, sets font and background gradient === */
-
-html, boy {
+/* Global styling*/
+html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   min-height: 100%;
 }
 
+/* Background styles */
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
@@ -18,7 +18,7 @@ body {
   background-attachment: fixed;
 }
 
-/* === Background Texture Effect, adds subtle dotted overlay === */
+/* Background overlay */
 body::before {
   content: "";
   position: fixed;
@@ -30,7 +30,7 @@ body::before {
   pointer-events: none;
 }
 
-/* === Main App Layout, centers content vertically and horizontally === */
+/* Main layout */
 .app-container {
   min-height: 100vh;
   display: flex;
@@ -40,7 +40,7 @@ body::before {
   text-align: center;
 }
 
-/* === Title Styling === */
+/* Title styles */
 .title {
   font-size: 48px;
   font-weight: 800;
@@ -50,19 +50,19 @@ body::before {
   text-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* === Subtitle Text === */
+/* Subtitle styles */
 .subtitle {
   font-size: 1.2rem;
   color: #6b7280;
   margin-bottom: 20px;
 }
 
-/* === Image Hover Effect === */
+/* Image hover effect */
 img:hover {
   transform: scale(1.02);
 }
 
-/* === Responsive Image Styling === */
+/* Responsive image styles */
 img {
   width: 90%;
   max-width: 600px;
@@ -70,20 +70,20 @@ img {
   border-radius: 12px;
 }
 
-/* === Score Display === */
+/* Score styles */
 .score {
   font-size: 24px;
   font-weight: 700;
   margin: 10px 0;
 }
 
-/* === Question Text === */
+/* Question styles */
 .question {
   font-size: 19px;
   margin: 20px 0;
 }
 
-/* === Answer Button Container === */
+/* Answer layout */
 .answers {
   display: flex;
   gap: 10px;
@@ -93,7 +93,7 @@ img {
   max-width: 500px;
 }
 
-/* === General Button Style === */
+/* Button styles */
 button {
   padding: 14px 22px;
   border-radius: 14px;
@@ -107,20 +107,20 @@ button {
   transition: all 0.25s ease;
 }
 
-/* === Button Hover Effect === */
+/* Button hover state */
 button:hover {
   background: #f3f4f6;
   color: #111;
   transform: translateY(-2px);
 }
 
-/* === Welcome Text === */
+/* Welcome text */
 .welcome {
   color: #4b5563;
   margin-bottom: 10px;
 }
 
-/* === Login Page Container === */
+/* Login container */
 .auth-container {
   height: 100vh;
   display: flex;
@@ -128,7 +128,7 @@ button:hover {
   justify-content: center;
 }
 
-/* === Login Card (Main box) === */
+/* Login card */
 .auth-card {
   background: #1e3a5f;;
   padding: 50px;
@@ -140,7 +140,7 @@ button:hover {
   transition: all 0.3s ease;
 }
 
-/* === Login Title === */
+/* Login heading */
 .auth-card h2 {
   color: white;
   margin-bottom: 20px;
@@ -148,32 +148,32 @@ button:hover {
   letter-spacing: 0.5px;
 }
 
-/* === Card Hover Animation === */
+/* Card hover effect */
 .auth-card:hover {
   transform: translateY(-6px) scale(1.01);
 }
 
-/* === Toggle Link (Sign up/ Login) === */
+/* Toggle link */
 .auth-card p {
   color: #e6c36a;
   transition: all 0.2s ease;
   cursor: pointer;
 }
 
-/* === Toggle Link Hover === */
+/* Toggle link hover */
 .auth-card p:hover {
   color: #f4d98b;
   transform: scale(1.05);
 }
 
-/* === Form Layout === */
+/* Form layout */
 .form {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-/* === Input Fields === */
+/* Input styles */
 .form input {
   padding: 12px;
   border-radius: 10px;
@@ -183,17 +183,18 @@ button:hover {
   color: #1f2937;
 }
 
+/* Placeholder styles */
 .form input::placeholder {
   color: #6b7280;
   opacity: 1;
 }
-/* === Input Focus Effect === */
+/* Input focus state */
 .form input:focus {
   border-color: #38bdf8;
   box-shadow: 0 0 0 10px rgba(56, 189, 248, 0.4);
 }
 
-/* === Submit Button === */
+/* Submit button */
 .form button {
   padding: 12px;
   border-radius: 10px;
@@ -206,28 +207,30 @@ button:hover {
   width: 100%;
 }
 
-/* === Submit Button Hover=== */
+/* Submit button hover */
 .form button:hover {
   transform: scale(1.03);
   box-shadow: 0 0 15px rgba(34,197,94,0.6);
 }
 
+/* Toggle link styles */
 .toggle-link {
   color: #38bdf8;
   cursor: pointer;
   font-size: 14px;
 }
 
+/* Toggle link hover */
 .toggle-link:hover {
   text-decoration: underline;
 }
 
-/* === Input Placeholder Style === */
+/* Placeholder styles */
 .form input::placeholder {
   color: rgba(255,255,255,0.5);
 }
 
-/* === Responsive Screen Adjustments === */
+/* Mobile responsive styles */
 @media (max-width: 480px) {
   .title {
     font-size: 32px;
@@ -244,6 +247,7 @@ button:hover {
   }
 }
 
+/* Shared text styles */
 .subtitle,
 .question,
 .score,
@@ -252,6 +256,7 @@ button:hover {
   text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 }
 
+/* Info panel */
 .info-panel {
   background: rgba(0, 0, 0, 0.35);
   -webkit-backdrop-filter: blur(10px);
@@ -263,6 +268,7 @@ button:hover {
   box-shadow: 0 8px 25px rgba(0,0,0,0.25);
 }
 
+/* Correct answer state */
 .correct {
   background: #4CAF50 !important;
   color: white !important;
@@ -273,6 +279,7 @@ button:hover {
   transform: scale(1.08);
 }
 
+/* Incorrect answer state */
 .incorrect {
   background: #E53935 !important;
   color: white !important;
@@ -283,6 +290,7 @@ button:hover {
   transform: scale(1.08);
 }
 
+/*Game over layout */
 .game-over-container {
   display: flex;
   justify-content: center;
@@ -290,6 +298,7 @@ button:hover {
   min-height: 100vh;
 }
 
+/* Final score card */
 .final-score-card {
   position: absolute;
   top: 50%;
@@ -305,6 +314,7 @@ button:hover {
   width: 420px;
 }
 
+/* Final score text */
 .final-score {
   font-size: 42px;
   font-weight: bold;
@@ -312,10 +322,12 @@ button:hover {
   color: white;
 }
 
+/* Final score heading */
 .final-score-card h1 {
   margin: 0;
 }
 
+/* Restart button */
 .play-again-button {
   background: #4ade80;
   border: none;
@@ -327,10 +339,13 @@ button:hover {
   transition: 0.3s ease;
 }
 
+/* Restart button hover */
 .play-again-button:hover {
   transform: scale(1.05);
   box-shadow: 0 0 15px rgba(34,197,94,0.6);
 }
+
+/* Wiggle animation */
 @keyframes wiggle {
   0% { transform: rotate(0deg); }
   25% { transform: rotate(1deg); }

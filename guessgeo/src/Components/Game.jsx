@@ -1,4 +1,4 @@
-/* === Game Component (Main Logic), controls game state, Street View Image loading, scoring, and question generation === */
+/* Main game component*/
 import { useState, useEffect } from "react";
 import { getStreetViewURL } from "../Services/streetView";
 import Score from "./Score.jsx";
@@ -7,10 +7,7 @@ import Answers from "./Answers.jsx";
 
 function Game({ user }) {
 
-    /* === Data, list of all possible locations used in the game, each object contains:
-1.City & country (for answers)
-2.Lat & lon (for Google Street View)
-3.Heading (camera direction) === */
+    /* Available game locations */
     const PLACES = [
         { 
             city: "Porto",
@@ -269,7 +266,7 @@ function Game({ user }) {
         }
     ];
 
-    /* === State Variables === */
+    /* Game state */
     const [score, setScore] = useState(0);
     const [place, setPlace] = useState(null);
     const [options, setOptions] = useState([]);
@@ -282,7 +279,7 @@ function Game({ user }) {
     const [feedback, setFeedback] = useState("");
     const [usedPlaces, setUsedPlaces] = useState([]);
 
-    /* === Help Functions, get random location, returns one random place object from Places array === */
+    /* Select an unused random location */
     const getRandomPlace = () => {
     const availablePlaces = PLACES.filter(
         (place) => !usedPlaces.some((used) => used.city === place.city && used.country === place.country
@@ -309,49 +306,49 @@ function Game({ user }) {
     return [...array] .sort(() => Math.random() - 0.5)
     }
 
-    /* === Game Logic === */
+    /* Game flow */
 
-    /* === Load New Location, gets random place + builds question === */
+    /* Load a new round */
     const loadPlace = () => {
 
-    // Get random location data 
+    // Select location data 
     const { lat, lon, city, country, heading } = getRandomPlace();
 
-    // Access API key from .env.local
+    // Google Maps API key
     const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-    // Build Google Street View image URL
+    // Generate Street View image
     const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=-5&key=${API_KEY}`;
 
-    // Set image to display
+    // Update displayed image
     setImage(streetViewURL);
     console.log(streetViewURL);
 
-    // Store correct answer
+    // Save correct answer
     const correctAnswer = `${city}, ${country}`;
     setPlace(correctAnswer);
 
-    /* Create answer pool  */
+    /* Generate answer choices */
     const PLACE_POOL = PLACES.map(
         (p) => `${p.city}, ${p.country}`
     );
 
-    // Get 3 random wrong answers === */
+    // Select incorrect options
     const wrongOptions = PLACE_POOL
         .filter((p) => p !== correctAnswer)
         .sort(() => Math.random() - 0.5)
         .slice(0, 3);
 
-    // Combine correct + wrong answers and shuffle them
+    // Shuffle answer options
     setOptions(shuffleArray([correctAnswer, ...wrongOptions]));
     };
 
-    /* === Handle Answer Click, checks correctness + updates score === */
+    /* Process player answer */
     const handleAnswer = (selected) => {
     setSelectedAnswer(selected);
     setShowResult(true);
 
-    // If correct -> increase score
+    // Update score on correct answer
     if (selected === place) {
         setScore((prev) => prev + 1);
         setFeedback("Correct!");
@@ -359,7 +356,7 @@ function Game({ user }) {
         setFeedback(`Incorrect! Answer: ${place}`);
     }
 
-    // Wait 2 seconds before next round
+    // Delay before next round
     setTimeout(() => {
         if (round === 10) {
         setGameOver(true);
@@ -373,7 +370,7 @@ function Game({ user }) {
 };
 
 
-    /* === Initial Load, runs once when component mounts === */
+    /* Load first round */
     useEffect(() => {
     loadPlace();
     }, []);
@@ -388,8 +385,7 @@ function Game({ user }) {
         loadPlace();
     };
 
-    /* === Game Over Screen === */
-    /* Show final score after 5 rounds and lets user restart the game */
+    /* Final score screen */
     if (gameOver) {
         return (
             <div className="final-score-card">
@@ -405,7 +401,7 @@ function Game({ user }) {
         );
     }
 
-    /* === JSX === */
+    /* Render game UI */
     return (
     <div className="app-container">
         <h1 className="title">GuessGeo</h1>

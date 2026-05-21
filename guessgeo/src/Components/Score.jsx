@@ -1,7 +1,6 @@
-/* === Score Component, displays the user's current score === */
+/* Score display component */
 function Score({ score }) {
 
-    // Displays the score passed down from Game.jsx
     return <h2 className="score">Score: {score}</h2>;
 }
 

@@ -282,7 +282,7 @@ function Game({ user }) {
     const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
     // Build Google Street View image URL
-    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=0&key=${API_KEY}`;// Replace 'our_api_key' with our API key //
+    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=0&key=$AIzaSyARybNPq1G_biwYZEOUT8cdVLsTD0geeQ0`;// Replace 'our_api_key' with our API key //
 
     // Set image to display
     setImage(streetViewURL);

@@ -1,54 +1,57 @@
-/* === Login Component, handles login + sign up using localStorage === */
+/* Authentication component */
 import {useState} from "react";
 
-function Login({setUser}) {
+function Login({ setUser }) {
 
-    /* === Form State === */
+    /* Form state */
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
     const [isLogin, setIsLogin] = useState(true);
 
-    /* === Form Submission Handler, handles both login and sign up === */
+    /* Form form submission */
     const handleSubmit = (e) => {
-        // Prevent page refresh
+        
+        // Stop default form reload
         e.preventDefault();
 
-        // Validation: make sure fields are filled
+        // Validate required fields
         if (!username || !password) {
             alert("Please fill in both fields");
         return;
         }
 
-        /* === Login Flow  === */
+        /* Login flow */
         if (isLogin) {
         
-        // Get stored user from localStorage
+        // Retrieve saved user
         const storedUser = JSON.parse(localStorage.getItem(username));
 
-        // Check if user exists and password matches
+        // Verify login credentials
         if (storedUser && storedUser.password === password) {
-                // Log user in
+                
+                //Set active user
                 setUser(storedUser);
                 } else {
-                    alert("Invalid login");
+                    alert("Incorrect username or password");
                 }
         }
 
-        /* === Sign Up Flow === */
+        /* Sign up flow */
         else {
 
-            // Create new user object
-            const newUser = { username, password };
+            // Create user data
+            const newUser = { username, password, email };
 
-            // Save user in localStorage
+            // Store user locally
             localStorage.setItem(username, JSON.stringify(newUser));
 
-            // Log them in immediately
+            // Start user session
             setUser(newUser);
         }
     };
 
-    /* === UI Render === */
+    /* Render login form */
     return (
         <div className="auth-container">
             <div className="auth-card">
@@ -57,17 +60,35 @@ function Login({setUser}) {
             <form onSubmit={handleSubmit} className="form">
                 <input
                     type="text"
+                    id="username"
+                    name="username"
                     placeholder="Username"
+                    autoComplete="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
 
                 <input
                     type="password"
+                    id="password"
+                    name="password"
                     placeholder="Password"
+                    autoComplete={isLogin ? "current-password" : "new-password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+
+                {!isLogin && (
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    />
+                )}
 
                 <button type="submit">
                     {isLogin ? "Login" : "Sign Up"}

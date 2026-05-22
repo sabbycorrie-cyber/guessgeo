@@ -1,7 +1,7 @@
-/* === Question Component, displays the current question text === */
+/* Question display component */
 function Question () {
 
-    // Static question shown to the user
+    // Static question shown to user
     return <h3>Where is this place?</h3>;
 }
 

@@ -1,15 +1,13 @@
-/* === Game Component (Main Logic), controls game state, scoring, and question generation === */
+/* Main game component*/
 import { useState, useEffect } from "react";
+import { getStreetViewURL } from "../Services/streetView";
 import Score from "./Score.jsx";
 import Question from "./Question.jsx";
 import Answers from "./Answers.jsx";
 
 function Game({ user }) {
 
-    /* === Data, list of all possible locations used in the game, each object contains:
-1.City & country (for answers)
-2.lat & lon (for Google Street View)
-3.Heading (camera direction) === */
+    /* Available game locations */
     const PLACES = [
         { 
             city: "Porto",
@@ -20,11 +18,11 @@ function Game({ user }) {
         },
 
         { 
-            city: "Bridgetown",
+            city: "Holetown",
             country: "Barbados",
-            lat: 13.0975,
-            lon: -59.6167,
-            heading: 90
+            lat: 13.1866751,
+            lon: -59.6365324,
+            heading: 41.99
         },
 
         { 
@@ -36,19 +34,19 @@ function Game({ user }) {
         },
 
         { 
-            city: "Cusco",
+            city: "Lima",
             country: "Peru",
-            lat: -13.5167,
-            lon: -71.9780,
+            lat: -12.1464,
+            lon: -77.0207,
             heading: 180
         },
 
         { 
             city: "Tbilisi",
             country: "Georgia",
-            lat: 41.6952,
-            lon: 44.8010,
-            heading: 200
+            lat: 41.6938,
+            lon: 44.8015,
+            heading: 120
             },
 
         { 
@@ -253,97 +251,190 @@ function Game({ user }) {
             lat: 60.1678205,
             lon: 24.9494882,
             heading: 350},
+        {
+            city: "Helsingborg",
+            country: "Sweden",
+            lat: 56.0657203,
+            lon: 12.677352,
+            heading: 180.35},
+        {
+            city: "Georgetown",
+            country: "Guyana",
+            lat: 6.4890,
+            lon: -58.2527,
+            heading: 180
+        }
     ];
 
-    /* === State Variables === */
+    /* Game state */
     const [score, setScore] = useState(0);
     const [place, setPlace] = useState(null);
     const [options, setOptions] = useState([]);
     const [image, setImage] = useState(null);
+    const [round, setRound] = useState(1);
+    const [gameOver, setGameOver] = useState(false);
+    
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const [showResult, setShowResult] = useState(false);
+    const [feedback, setFeedback] = useState("");
+    const [usedPlaces, setUsedPlaces] = useState([]);
 
-    /* === Help Functions, get random location, returns one random place object from Places array === */
+    /* Select an unused random location */
     const getRandomPlace = () => {
-    return PLACES[Math.floor(Math.random() * PLACES.length)]
+    const availablePlaces = PLACES.filter(
+        (place) => !usedPlaces.some((used) => used.city === place.city && used.country === place.country
+        )
+    );
+
+    if (availablePlaces.length === 0) {
+        setUsedPlaces([]);
+        return PLACES[Math.floor(Math.random() * PLACES.length)];
     }
+
+    const randomPlace = availablePlaces[Math.floor(Math.random() * availablePlaces.length)];
+
+    setUsedPlaces((prev) => [...prev, randomPlace]);
+
+    if (availablePlaces.length === 0) {
+        setUsedPlaces([]);
+    }
+
+    return randomPlace;
+    };
 
     const shuffleArray = (array) => {
     return [...array] .sort(() => Math.random() - 0.5)
     }
 
-    /* === Game Logic === */
+    /* Game flow */
 
-    /* === Load New Location, gets random place + builds question === */
+    /* Load a new round */
     const loadPlace = () => {
 
-    // Get random location data 
+    // Select location data 
     const { lat, lon, city, country, heading } = getRandomPlace();
 
-    // Access API key from .env
+    // Google Maps API key
     const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
     // Build Google Street View image URL
-    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=0&key=$AIzaSyARybNPq1G_biwYZEOUT8cdVLsTD0geeQ0`;// Replace 'our_api_key' with our API key //
+    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=0&key=
 
-    // Set image to display
+    // Update displayed image
     setImage(streetViewURL);
+    console.log(streetViewURL);
 
-    // Store correct answer
+    // Save correct answer
     const correctAnswer = `${city}, ${country}`;
     setPlace(correctAnswer);
 
-    /* Create answer pool  */
+    /* Generate answer choices */
     const PLACE_POOL = PLACES.map(
         (p) => `${p.city}, ${p.country}`
     );
 
-    // Get 3 random wrong answers === */
+    // Select incorrect options
     const wrongOptions = PLACE_POOL
         .filter((p) => p !== correctAnswer)
         .sort(() => Math.random() - 0.5)
         .slice(0, 3);
 
-    // Combine correct + wrong answers and shuffle them
+    // Shuffle answer options
     setOptions(shuffleArray([correctAnswer, ...wrongOptions]));
     };
 
-    /* === Handle Answer Click, checks correctness + updates score === */
+    /* Process player answer */
     const handleAnswer = (selected) => {
-    console.log("Selected:", selected);
-    console.log("Correct:", place);
+    setSelectedAnswer(selected);
+    setShowResult(true);
 
-    // If correct -> increase score
+    // Update score on correct answer
     if (selected === place) {
-        setScore(prev => prev + 1);
+        setScore((prev) => prev + 1);
+        setFeedback("Correct!");
+    } else {
+        setFeedback(`Incorrect! Answer: ${place}`);
     }
 
-    // Load next question
-    loadPlace();
+    // Delay before next round
+    setTimeout(() => {
+        if (round === 10) {
+        setGameOver(true);
+        } else {
+        setRound((prev) => prev + 1);
+        loadPlace();
+        }
+        setShowResult(false);
+        setSelectedAnswer(null);
+    }, 800);
 };
 
-    /* === Initial Load, runs once when component mounts === */
+
+    /* Load first round */
     useEffect(() => {
     loadPlace();
     }, []);
 
-    /* === JSX === */
+    const restartGame = () => {
+        setScore(0);
+        setRound(1);
+        setGameOver(false);
+        setUsedPlaces([]);
+        setSelectedAnswer(null);
+        setShowResult(false);
+        loadPlace();
+    };
+
+    /* Final score screen */
+    if (gameOver) {
+        return (
+            <div className="final-score-card">
+                <h1>Game Over</h1>
+
+                <p className="final-score">Final Score: {score}/10</p>
+
+                <button className="play-again-button" 
+                onClick={restartGame}>
+                Play Again!
+                </button>
+                </div>
+        );
+    }
+
+    /* Render game UI */
     return (
     <div className="app-container">
-        <h1 className="title">Guess Geo</h1>
+        <h1 className="title">GuessGeo</h1>
 
         {image ? (
         <img src={image} alt="Street View" />
         ) : (
         <p>Loading location...</p>
         )}
+        <div className="info-panel">
         <h2 className="subtitle">Where in the world are you?</h2>
         <p className="welcome">Welcome, {user ? user.username : "Guest"}!</p>
 
-        <p className="score">Score score={score} </p>
-        <p className="question">Where is this place?</p>
+        <Score score={score} />
+        </div>
 
-        <div className="answers">
-            <Answers options={options} onAnswer={handleAnswer} />
+        <p className="question">Where is this place?</p>
+{showResult && (
+    <div className="result-message">
+    {selectedAnswer === place ? (
+        <p className="correct">Correct!</p>
+    ) : (
+        <p className="incorrect">Incorrect! Correct answer was: {place}</p>
+    )}
     </div>
+)}
+
+<div className="answers">
+    <Answers options={options} 
+    correctAnswer={place}
+    onAnswer={handleAnswer}
+    />
+</div>
     </div>
     );
 }

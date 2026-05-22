@@ -1,8 +1,7 @@
-/* === Score Component, displays the user's current score === */
+/* Score display component */
 function Score({ score }) {
 
-    // Displays the score passed down from Game.jsx
-    return <h2>Score: {score}</h2>;
+    return <h2 className="score">Score: {score}</h2>;
 }
 
 export default Score;

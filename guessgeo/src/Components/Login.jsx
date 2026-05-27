@@ -62,8 +62,7 @@ function Login({ setUser }) {
                     type="text"
                     id="username"
                     name="username"
-                    placeholder="Username"
-                    autoComplete="username"
+                    placeholder="Enter username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
@@ -72,8 +71,7 @@ function Login({ setUser }) {
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="Password"
-                    autoComplete={isLogin ? "current-password" : "new-password"}
+                    placeholder="Enter password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
@@ -84,7 +82,6 @@ function Login({ setUser }) {
                     id="email"
                     name="email"
                     placeholder="Enter your email"
-                    autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     />

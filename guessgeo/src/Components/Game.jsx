@@ -315,7 +315,7 @@ function Game({ user }) {
     const { lat, lon, city, country, heading } = getRandomPlace();
 
     // Generate Street View image
-    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=-5&key=AIzaSyDFZGloO-0mv2bvqbbifvjVoc80yUOjHtw`;
+    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=-5&key=OUR_API_KEY_HERE`;
 
     // Update displayed image
     setImage(streetViewURL);

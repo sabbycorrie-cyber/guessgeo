@@ -258,7 +258,7 @@ function Game({ user }) {
             lon: 12.677352,
             heading: 180.35},
         {
-            city: "Georgetown",
+            city: "Soesdyke",
             country: "Guyana",
             lat: 6.4890,
             lon: -58.2527,
@@ -315,7 +315,7 @@ function Game({ user }) {
     const { lat, lon, city, country, heading } = getRandomPlace();
 
     // Generate Street View image
-    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=-5&key=OUR_API_KEY_HERE`;
+    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=-5&key=Our_Key_Here`;
 
     // Update displayed image
     setImage(streetViewURL);

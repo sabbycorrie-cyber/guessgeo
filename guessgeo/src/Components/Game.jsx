@@ -74,9 +74,9 @@ function Game({ user }) {
         {
             city: "Barcelona",
             country: "Spain",
-            lat: 41.403177113795195,
-            lon: 2.1749564452995607,
-            heading: 274 },
+            lat: 41.4035622,
+            lon: 2.1732436,
+            heading: 63},
         {
             city: "St Petersburg",
             country: "Russia",
@@ -314,8 +314,11 @@ function Game({ user }) {
     // Select location data 
     const { lat, lon, city, country, heading } = getRandomPlace();
 
-    // Generate Street View image
-    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading ?? 120}&pitch=-5&key=Our_Key_Here`;
+    // Google Maps API key
+    const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
+    // Build Google Street View image URL
+    const streetViewURL = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${lat},${lon}&fov=90&heading=${heading?? 120}&pitch=0&key=${API_KEY}`;
 
     // Update displayed image
     setImage(streetViewURL);

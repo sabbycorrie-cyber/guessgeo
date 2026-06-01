@@ -40,7 +40,6 @@ body::before {
   text-align: center;
 }
 
-/* Title styles */
 .title {
   font-size: 75px;
   font-weight: 900;
@@ -51,19 +50,16 @@ body::before {
                 0 2px 6px rgba(0,0,0,0.15);
 }
 
-/* Subtitle styles */
 .subtitle {
   font-size: 1.2rem;
   color: #6b7280;
   margin-bottom: 20px;
 }
 
-/* Image hover effect */
 img:hover {
   transform: scale(1.02);
 }
 
-/* Responsive image styles */
 img {
   width: 90%;
   max-width: 600px;
@@ -71,20 +67,17 @@ img {
   border-radius: 12px;
 }
 
-/* Score styles */
 .score {
   font-size: 24px;
   font-weight: 700;
   margin: 10px 0;
 }
 
-/* Question styles */
 .question {
   font-size: 19px;
   margin: 20px 0;
 }
 
-/* Answer layout */
 .answers {
   display: flex;
   gap: 10px;
@@ -94,7 +87,6 @@ img {
   max-width: 500px;
 }
 
-/* Button styles */
 button {
   padding: 14px 22px;
   border-radius: 14px;
@@ -108,14 +100,12 @@ button {
   transition: all 0.25s ease;
 }
 
-/* Button hover state */
 button:hover {
   background: #f3f4f6;
   color: #111;
   transform: translateY(-2px);
 }
 
-/* Welcome text */
 .welcome {
   color: #4b5563;
   margin-bottom: 10px;
@@ -168,7 +158,6 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* Form layout */
 .form {
   display: flex;
   flex-direction: column;
@@ -222,7 +211,6 @@ button:hover {
   font-size: 14px;
 }
 
-/* Toggle link hover */
 .toggle-link:hover {
   text-decoration: underline;
 }
@@ -265,7 +253,8 @@ button:hover {
   box-shadow: 0 8px 25px rgba(0,0,0,0.25);
 }
 
-/* Correct answer state */
+/* Game feedback */
+
 .correct {
   background: #4CAF50 !important;
   color: white !important;
@@ -276,7 +265,6 @@ button:hover {
   transform: scale(1.08);
 }
 
-/* Incorrect answer state */
 .incorrect {
   background: #E53935 !important;
   color: white !important;
@@ -287,7 +275,8 @@ button:hover {
   transform: scale(1.08);
 }
 
-/*Game over layout */
+/*Game over screen */
+
 .game-over-container {
   display: flex;
   justify-content: center;
@@ -295,7 +284,6 @@ button:hover {
   min-height: 100vh;
 }
 
-/* Final score card */
 .final-score-card {
   position: absolute;
   top: 50%;
@@ -311,7 +299,6 @@ button:hover {
   width: 420px;
 }
 
-/* Final score text */
 .final-score {
   font-size: 42px;
   font-weight: bold;
@@ -319,12 +306,12 @@ button:hover {
   color: white;
 }
 
-/* Final score heading */
 .final-score-card h1 {
   margin: 0;
 }
 
 /* Restart button */
+
 .play-again-button {
   background: #4ade80;
   border: none;
@@ -351,12 +338,15 @@ button:hover {
   100% { transform: rotate(0deg); }
 }
 
+/* Intro screen layout */
+
 .intro-screen {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 
 .intro-card {
   background: rgba(0,0,0,0.45);
@@ -368,6 +358,8 @@ button:hover {
   max-width: 600px;
   margin-top: -50px;
 }
+
+/* Typography */
 
 .intro-title {
   font-size: 72px;
@@ -388,6 +380,9 @@ button:hover {
   margin-bottom: 35px;
   text-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
+
+/* Buttons */
+
 .play-button {
   background: linear-gradient(135deg, #22c55e, #16a34a);
   border: none;

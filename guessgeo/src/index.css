@@ -422,3 +422,24 @@ button:hover {
   0%, 100% { transform: translateX(0px); }
   50% { transform: translateX(6px); }
 }
+
+@media (max-width: 768px) {
+  .intro-screen {
+    min-height: auto;
+    padding: 20px;
+  }
+  .intro-card {
+    padding: 25px;
+    margin-top: 0;
+  }
+  .intro-title {
+    font-size: 56px;
+  }
+  .intro-subtitle {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  .credits {
+    font-size: 12px;
+  }
+}

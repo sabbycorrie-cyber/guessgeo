@@ -425,7 +425,7 @@ button:hover {
 
 @media (max-width: 768px) {
   .intro-screen {
-    min-height: auto;
+    min-height: 0;
     padding: 20px;
   }
   .intro-card {
